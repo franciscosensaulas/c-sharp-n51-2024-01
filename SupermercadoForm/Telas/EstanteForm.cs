@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SupermercadoForm
+namespace SupermercadoForm.Telas
 {
     public partial class EstanteForm : Form
     {
@@ -37,7 +37,7 @@ namespace SupermercadoForm
 
         private void ListarEstantes()
         {
-            // Obter o texto para pesquisa
+            // Obter o texto para pesquisa LIKE
             string pesquisa = "%" + textBoxPesquisar.Text.Trim() + "%"; // %Nes%
 
             // Conectar no banco de dados

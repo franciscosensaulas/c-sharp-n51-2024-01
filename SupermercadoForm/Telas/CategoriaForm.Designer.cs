@@ -1,4 +1,4 @@
-﻿namespace SupermercadoForm
+﻿namespace SupermercadoForm.Telas
 {
     partial class CategoriaForm
     {

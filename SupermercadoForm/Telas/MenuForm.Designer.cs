@@ -1,4 +1,4 @@
-﻿namespace SupermercadoForm
+﻿namespace SupermercadoForm.Telas
 {
     partial class MenuForm
     {
@@ -30,11 +30,12 @@
         {
             buttonEstantes = new Button();
             buttonCategorias = new Button();
+            buttonProdutos = new Button();
             SuspendLayout();
             // 
             // buttonEstantes
             // 
-            buttonEstantes.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonEstantes.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             buttonEstantes.ForeColor = Color.BlueViolet;
             buttonEstantes.Location = new Point(404, 110);
             buttonEstantes.Name = "buttonEstantes";
@@ -46,7 +47,7 @@
             // 
             // buttonCategorias
             // 
-            buttonCategorias.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point);
+            buttonCategorias.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
             buttonCategorias.ForeColor = Color.BlueViolet;
             buttonCategorias.Location = new Point(180, 110);
             buttonCategorias.Name = "buttonCategorias";
@@ -56,11 +57,24 @@
             buttonCategorias.UseVisualStyleBackColor = true;
             buttonCategorias.Click += buttonCategorias_Click;
             // 
+            // buttonProdutos
+            // 
+            buttonProdutos.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            buttonProdutos.ForeColor = Color.BlueViolet;
+            buttonProdutos.Location = new Point(617, 110);
+            buttonProdutos.Name = "buttonProdutos";
+            buttonProdutos.Size = new Size(180, 180);
+            buttonProdutos.TabIndex = 3;
+            buttonProdutos.Text = "Produtos";
+            buttonProdutos.UseVisualStyleBackColor = true;
+            buttonProdutos.Click += buttonProdutos_Click;
+            // 
             // MenuForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(978, 450);
+            Controls.Add(buttonProdutos);
             Controls.Add(buttonCategorias);
             Controls.Add(buttonEstantes);
             Name = "MenuForm";
@@ -72,5 +86,6 @@
         #endregion
         private Button buttonEstantes;
         private Button buttonCategorias;
+        private Button buttonProdutos;
     }
 }
