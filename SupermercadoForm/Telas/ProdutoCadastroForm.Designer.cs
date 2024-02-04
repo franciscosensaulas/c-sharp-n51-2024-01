@@ -65,11 +65,14 @@
             // 
             // comboBoxCategoria
             // 
+            comboBoxCategoria.DisplayMember = "Nome";
             comboBoxCategoria.FormattingEnabled = true;
             comboBoxCategoria.Location = new Point(12, 96);
             comboBoxCategoria.Name = "comboBoxCategoria";
             comboBoxCategoria.Size = new Size(317, 28);
             comboBoxCategoria.TabIndex = 15;
+            comboBoxCategoria.ValueMember = "Nome";
+            comboBoxCategoria.SelectedIndexChanged += comboBoxCategoria_SelectedIndexChanged;
             // 
             // labelCategoria
             // 
@@ -80,10 +83,10 @@
             labelCategoria.TabIndex = 14;
             labelCategoria.Text = "Categoria";
             // 
-            // textBox1
+            // textBoxPrecoUnitario
             // 
             textBoxPrecoUnitario.Location = new Point(12, 155);
-            textBoxPrecoUnitario.Name = "textBox1";
+            textBoxPrecoUnitario.Name = "textBoxPrecoUnitario";
             textBoxPrecoUnitario.Size = new Size(317, 27);
             textBoxPrecoUnitario.TabIndex = 17;
             // 

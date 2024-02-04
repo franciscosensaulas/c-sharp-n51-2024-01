@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             dataGridViewProdutos = new DataGridView();
+            ColumnId = new DataGridViewTextBoxColumn();
+            ColumnNome = new DataGridViewTextBoxColumn();
+            ColumnCategoria = new DataGridViewTextBoxColumn();
+            ColumnPrecoUnitario = new DataGridViewTextBoxColumn();
             buttonNovo = new Button();
             buttonEditar = new Button();
             buttonApagar = new Button();
@@ -44,10 +48,6 @@
             buttonLimparFiltros = new Button();
             comboBoxOrdenar = new ComboBox();
             labelOrdenar = new Label();
-            ColumnId = new DataGridViewTextBoxColumn();
-            ColumnNome = new DataGridViewTextBoxColumn();
-            ColumnCategoria = new DataGridViewTextBoxColumn();
-            ColumnPrecoUnitario = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProdutos).BeginInit();
             SuspendLayout();
             // 
@@ -63,6 +63,38 @@
             dataGridViewProdutos.RowHeadersWidth = 51;
             dataGridViewProdutos.Size = new Size(776, 411);
             dataGridViewProdutos.TabIndex = 0;
+            // 
+            // ColumnId
+            // 
+            ColumnId.HeaderText = "Código";
+            ColumnId.MinimumWidth = 6;
+            ColumnId.Name = "ColumnId";
+            ColumnId.ReadOnly = true;
+            ColumnId.Width = 125;
+            // 
+            // ColumnNome
+            // 
+            ColumnNome.HeaderText = "Nome";
+            ColumnNome.MinimumWidth = 6;
+            ColumnNome.Name = "ColumnNome";
+            ColumnNome.ReadOnly = true;
+            ColumnNome.Width = 125;
+            // 
+            // ColumnCategoria
+            // 
+            ColumnCategoria.HeaderText = "Categoria";
+            ColumnCategoria.MinimumWidth = 6;
+            ColumnCategoria.Name = "ColumnCategoria";
+            ColumnCategoria.ReadOnly = true;
+            ColumnCategoria.Width = 125;
+            // 
+            // ColumnPrecoUnitario
+            // 
+            ColumnPrecoUnitario.HeaderText = "Preço Unitário";
+            ColumnPrecoUnitario.MinimumWidth = 6;
+            ColumnPrecoUnitario.Name = "ColumnPrecoUnitario";
+            ColumnPrecoUnitario.ReadOnly = true;
+            ColumnPrecoUnitario.Width = 125;
             // 
             // buttonNovo
             // 
@@ -198,38 +230,6 @@
             labelOrdenar.TabIndex = 14;
             labelOrdenar.Text = "Ordenar";
             // 
-            // ColumnId
-            // 
-            ColumnId.HeaderText = "Código";
-            ColumnId.MinimumWidth = 6;
-            ColumnId.Name = "ColumnId";
-            ColumnId.ReadOnly = true;
-            ColumnId.Width = 125;
-            // 
-            // ColumnNome
-            // 
-            ColumnNome.HeaderText = "Nome";
-            ColumnNome.MinimumWidth = 6;
-            ColumnNome.Name = "ColumnNome";
-            ColumnNome.ReadOnly = true;
-            ColumnNome.Width = 125;
-            // 
-            // ColumnCategoria
-            // 
-            ColumnCategoria.HeaderText = "Categoria";
-            ColumnCategoria.MinimumWidth = 6;
-            ColumnCategoria.Name = "ColumnCategoria";
-            ColumnCategoria.ReadOnly = true;
-            ColumnCategoria.Width = 125;
-            // 
-            // ColumnPrecoUnitario
-            // 
-            ColumnPrecoUnitario.HeaderText = "Preço Unitário";
-            ColumnPrecoUnitario.MinimumWidth = 6;
-            ColumnPrecoUnitario.Name = "ColumnPrecoUnitario";
-            ColumnPrecoUnitario.ReadOnly = true;
-            ColumnPrecoUnitario.Width = 125;
-            // 
             // ProdutoListaForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -254,6 +254,7 @@
             Name = "ProdutoListaForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Lista de Produtos";
+            Load += ProdutoListaForm_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewProdutos).EndInit();
             ResumeLayout(false);
             PerformLayout();
