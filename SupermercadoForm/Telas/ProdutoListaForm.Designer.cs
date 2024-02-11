@@ -48,6 +48,8 @@
             buttonLimparFiltros = new Button();
             comboBoxOrdenar = new ComboBox();
             labelOrdenar = new Label();
+            buttonPaginacaoAnterior = new Button();
+            buttonPaginacaoProximo = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridViewProdutos).BeginInit();
             SuspendLayout();
             // 
@@ -70,15 +72,15 @@
             ColumnId.MinimumWidth = 6;
             ColumnId.Name = "ColumnId";
             ColumnId.ReadOnly = true;
-            ColumnId.Width = 125;
+            ColumnId.Width = 80;
             // 
             // ColumnNome
             // 
+            ColumnNome.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             ColumnNome.HeaderText = "Nome";
             ColumnNome.MinimumWidth = 6;
             ColumnNome.Name = "ColumnNome";
             ColumnNome.ReadOnly = true;
-            ColumnNome.Width = 125;
             // 
             // ColumnCategoria
             // 
@@ -168,6 +170,7 @@
             comboBoxQuantidade.Name = "comboBoxQuantidade";
             comboBoxQuantidade.Size = new Size(116, 28);
             comboBoxQuantidade.TabIndex = 8;
+            comboBoxQuantidade.SelectedIndexChanged += comboBoxQuantidade_SelectedIndexChanged;
             // 
             // comboBoxExibir
             // 
@@ -177,6 +180,7 @@
             comboBoxExibir.Name = "comboBoxExibir";
             comboBoxExibir.Size = new Size(164, 28);
             comboBoxExibir.TabIndex = 9;
+            comboBoxExibir.SelectedIndexChanged += comboBoxExibir_SelectedIndexChanged;
             // 
             // labelPesquisa
             // 
@@ -193,6 +197,7 @@
             textBoxPesquisa.Name = "textBoxPesquisa";
             textBoxPesquisa.Size = new Size(317, 27);
             textBoxPesquisa.TabIndex = 11;
+            textBoxPesquisa.KeyDown += textBoxPesquisa_KeyDown;
             // 
             // buttonPesquisar
             // 
@@ -202,6 +207,7 @@
             buttonPesquisar.TabIndex = 12;
             buttonPesquisar.Text = "Pesquisar";
             buttonPesquisar.UseVisualStyleBackColor = true;
+            buttonPesquisar.Click += buttonPesquisar_Click;
             // 
             // buttonLimparFiltros
             // 
@@ -211,6 +217,7 @@
             buttonLimparFiltros.TabIndex = 13;
             buttonLimparFiltros.Text = "Limpar Filtros";
             buttonLimparFiltros.UseVisualStyleBackColor = true;
+            buttonLimparFiltros.Click += buttonLimparFiltros_Click;
             // 
             // comboBoxOrdenar
             // 
@@ -220,6 +227,7 @@
             comboBoxOrdenar.Name = "comboBoxOrdenar";
             comboBoxOrdenar.Size = new Size(153, 28);
             comboBoxOrdenar.TabIndex = 15;
+            comboBoxOrdenar.SelectedIndexChanged += comboBoxOrdenar_SelectedIndexChanged;
             // 
             // labelOrdenar
             // 
@@ -230,11 +238,33 @@
             labelOrdenar.TabIndex = 14;
             labelOrdenar.Text = "Ordenar";
             // 
+            // buttonPaginacaoAnterior
+            // 
+            buttonPaginacaoAnterior.Location = new Point(12, 523);
+            buttonPaginacaoAnterior.Name = "buttonPaginacaoAnterior";
+            buttonPaginacaoAnterior.Size = new Size(94, 29);
+            buttonPaginacaoAnterior.TabIndex = 16;
+            buttonPaginacaoAnterior.Text = "Anterior";
+            buttonPaginacaoAnterior.UseVisualStyleBackColor = true;
+            buttonPaginacaoAnterior.Click += buttonPaginacaoAnterior_Click;
+            // 
+            // buttonPaginacaoProximo
+            // 
+            buttonPaginacaoProximo.Location = new Point(112, 523);
+            buttonPaginacaoProximo.Name = "buttonPaginacaoProximo";
+            buttonPaginacaoProximo.Size = new Size(94, 29);
+            buttonPaginacaoProximo.TabIndex = 17;
+            buttonPaginacaoProximo.Text = "Próximo";
+            buttonPaginacaoProximo.UseVisualStyleBackColor = true;
+            buttonPaginacaoProximo.Click += buttonPaginacaoProximo_Click;
+            // 
             // ProdutoListaForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(904, 557);
+            Controls.Add(buttonPaginacaoProximo);
+            Controls.Add(buttonPaginacaoAnterior);
             Controls.Add(comboBoxOrdenar);
             Controls.Add(labelOrdenar);
             Controls.Add(buttonLimparFiltros);
@@ -278,6 +308,8 @@
         private Button buttonLimparFiltros;
         private ComboBox comboBoxOrdenar;
         private Label labelOrdenar;
+        private Button buttonPaginacaoAnterior;
+        private Button buttonPaginacaoProximo;
         private DataGridViewTextBoxColumn ColumnId;
         private DataGridViewTextBoxColumn ColumnNome;
         private DataGridViewTextBoxColumn ColumnCategoria;
