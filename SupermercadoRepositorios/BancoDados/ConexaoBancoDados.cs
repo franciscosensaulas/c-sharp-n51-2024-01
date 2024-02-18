@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 
-namespace SupermercadoForm.BancoDados
+namespace SupermercadoRepositorios.BancoDados
 {
     internal class ConexaoBancoDados
     {

@@ -1,5 +1,5 @@
-﻿using SupermercadoForm.Entidades;
-using SupermercadoForm.Repositorios;
+﻿using SupermercadoForm.Repositorios;
+using SupermercadoRepositorios.Entidades;
 
 namespace SupermercadoForm.Telas
 {

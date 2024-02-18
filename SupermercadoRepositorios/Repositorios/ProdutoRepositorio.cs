@@ -1,6 +1,6 @@
-﻿using SupermercadoForm.BancoDados;
-using SupermercadoForm.Entidades;
-using SupermercadoForm.Modelos;
+﻿using SupermercadoForm.Modelos;
+using SupermercadoRepositorios.BancoDados;
+using SupermercadoRepositorios.Entidades;
 using System.Data;
 
 namespace SupermercadoForm.Repositorios
@@ -13,7 +13,7 @@ namespace SupermercadoForm.Repositorios
     // Read => SELECT
     // Update => UPDATE
     // Delete => DELETE
-    internal class ProdutoRepositorio
+    public class ProdutoRepositorio
     {
         /*
          * Orientação a Objetos

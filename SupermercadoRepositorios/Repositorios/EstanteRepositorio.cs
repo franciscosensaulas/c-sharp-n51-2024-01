@@ -1,10 +1,10 @@
-﻿using SupermercadoForm.BancoDados;
-using SupermercadoForm.Entidades;
+﻿using SupermercadoRepositorios.BancoDados;
+using SupermercadoRepositorios.Entidades;
 using System.Data;
 
 namespace SupermercadoForm.Repositorios
 {
-    internal class EstanteRepositorio : IEstanteRepositorio
+    public class EstanteRepositorio : IEstanteRepositorio
     {
         private ConexaoBancoDados conexao;
 

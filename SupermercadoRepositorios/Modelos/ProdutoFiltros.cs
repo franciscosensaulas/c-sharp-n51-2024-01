@@ -1,6 +1,6 @@
 ﻿namespace SupermercadoForm.Modelos
 {
-    internal class ProdutoFiltros
+    public class ProdutoFiltros
     {
 
         private string pesquisa;
