@@ -1,23 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Data.SqlClient;
+﻿using SupermercadoForm.Entidades;
+using SupermercadoForm.Repositorios;
 
 namespace SupermercadoForm.Telas
 {
     public partial class CategoriaForm : Form
     {
-        public string ConnectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\franc\\Desktop\\Supermercado.mdf;Integrated Security=True;Connect Timeout=30";
-        
+        private CategoriaRepositorio repositorio;
+
         public CategoriaForm()
         {
             InitializeComponent();
+            // Instanciando um objeto da classe CategoriaRepositorio
+            repositorio = new CategoriaRepositorio();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -37,15 +31,11 @@ namespace SupermercadoForm.Telas
                 return;
             }
 
-            // Instancia um objeto para abrir a conexão com o banco de dados
-            SqlConnection conexao = new SqlConnection();
-            conexao.ConnectionString = ConnectionString;
+            var categoria = new Categoria();
+            categoria.Nome = nomeCategoria;
 
-            conexao.Open();
+            repositorio.Cadastrar(categoria);
 
-            SqlCommand comando = conexao.CreateCommand();
-            comando.CommandText = "INSERT INTO categorias (nome) VALUES ('" + nomeCategoria + "')";
-            comando.ExecuteNonQuery();
             // Limpar campo do nome da categoria
             textBoxNome.Clear();
             // Apresentar feedback que a categoria foi criada
@@ -65,34 +55,18 @@ namespace SupermercadoForm.Telas
         // Método ListarCategorias sem retorno(void)
         private void ListarCategorias()
         {
-            // Instanciar um objeto para abrir a conexão com o Banco de Dados
-            SqlConnection conexao = new SqlConnection();
-            // Definir a ConnectionString (onde o bd se encontra)
-            conexao.ConnectionString = ConnectionString;
-            // Abrir a conexão com o Banco de Dados
-            conexao.Open();
-            // Criar o objeto que será utilizado para definir o comando que será executado
-            SqlCommand comando = conexao.CreateCommand();
-            // Definir o comando que será executado
-            comando.CommandText = "SELECT id, nome FROM categorias";
-
-            // Criado tabela em memória para carregar os dados retornados do SELECT
-            DataTable tabelaEmMemoria = new DataTable();
-            // Carregado os dados da consulta (SELECT) na tabela em memória
-            tabelaEmMemoria.Load(comando.ExecuteReader());
-
             // Limpar campo que contém as categorias
             richTextBoxCategorias.Clear();
 
+            var categorias = repositorio.ObterTodos();
+
             // Percorrer cada um dos registros da consutla na tabela de categorias
-            for (int i = 0; i < tabelaEmMemoria.Rows.Count; i++)
+            for (int i = 0; i < categorias.Count; i++)
             {
                 // Obter o id e nome do registro percorrido
-                DataRow registro = tabelaEmMemoria.Rows[i];
-                int id = Convert.ToInt32(registro["id"]);
-                string nome = registro["nome"].ToString();
+                var categoria = categorias[i];
                 // Adicionar no campo das categorias o registro percorrido
-                richTextBoxCategorias.AppendText("Cod: " + id + " => " + nome + "\n");
+                richTextBoxCategorias.AppendText("Cod: " + categoria.Id + " => " + categoria.Nome + "\n");
             }
         }
 
@@ -106,27 +80,18 @@ namespace SupermercadoForm.Telas
             // Obter o código que o usuário informou que deseja apagar
             int codigoInformado = Convert.ToInt32(textBoxCodigoApagar.Text);
 
-            // Instanciar um objeto para abrir a conexão com o Banco de Dados
-            SqlConnection conexao = new SqlConnection();
-            // Definir a ConnectionString (onde o bd se encontra)
-            conexao.ConnectionString = ConnectionString;
-            // Abrir a conexão com o Banco de Dados
-            conexao.Open();
-            // Criar o objeto que será utilizado para definir o comando que será executado
-            SqlCommand comando = conexao.CreateCommand();
-            // Definir o comando que será executado
-            comando.CommandText = "DELETE FROM categorias WHERE id = " + codigoInformado;
-            // Executar o comando para apagar a categoria
-            int quantidadeRegistrosApagados = comando.ExecuteNonQuery();
+            repositorio.Apagar(codigoInformado);
 
             // Verificar que nenhum registro foi apagado
-            if (quantidadeRegistrosApagados == 0)
+            /*
+             * if (quantidadeRegistrosApagados == 0)
             {
                 // Apresentar feedback que nenhum registro foi apagado
                 MessageBox.Show("Não existe categoria com o código " + codigoInformado);
                 textBoxCodigoApagar.Focus();
                 return;
             }
+            */
 
             // Limpar campo do código para apagar
             textBoxCodigoApagar.Clear();
@@ -175,19 +140,13 @@ namespace SupermercadoForm.Telas
             int codigoParaAlterar = Convert.ToInt32(textBoxCodigoParaAlterar.Text);
             string nome = textBoxNomeParaAlterar.Text;
 
-            // Instanciar um objeto para abrir a conexão com o Banco de Dados
-            SqlConnection conexao = new SqlConnection();
-            // Definir a ConnectionString (onde o bd se encontra)
-            conexao.ConnectionString = ConnectionString;
-            // Abrir a conexão com o Banco de Dados
-            conexao.Open();
-            // Criar o objeto que será utilizado para definir o comando que será executado
-            SqlCommand comando = conexao.CreateCommand();
-            // Definir o comando que será executado
-            comando.CommandText = "UPDATE categorias SET nome = '" + nome + "' WHERE id = " + codigoParaAlterar;
-            // Executar o comando para atualizar a categoria
-            int quantidadeAlterada = comando.ExecuteNonQuery();
+            var categoria = new Categoria();
+            categoria.Id = codigoParaAlterar;
+            categoria.Nome = nome;
 
+            repositorio.Atualizar(categoria);
+
+            /*
             // Verificar que não foi alterado a categoria
             if (quantidadeAlterada == 0)
             {
@@ -196,6 +155,7 @@ namespace SupermercadoForm.Telas
                 textBoxCodigoApagar.Focus();
                 return;
             }
+            */
 
             // Limpar campos de atualização
             textBoxCodigoParaAlterar.Clear();
