@@ -1,5 +1,4 @@
-﻿using SupermercadoForm.Modelos;
-using SupermercadoForm.Repositorios;
+﻿using SupermercadoRepositorios.Modelos;
 using SupermercadoRepositorios.Repositorios;
 
 namespace SupermercadoForm.Telas
@@ -24,6 +23,7 @@ namespace SupermercadoForm.Telas
             var formCadastro = new ProdutoCadastroForm();
             formCadastro.Text = "Cadastro de Produto";
             formCadastro.ShowDialog();
+            PreencherDataGridViewComProdutos();
         }
 
         private void ProdutoListaForm_Load(object sender, EventArgs e)
@@ -178,10 +178,6 @@ namespace SupermercadoForm.Telas
             var linhaSelecionada = dataGridViewProdutos.SelectedRows[0];
             var id = Convert.ToInt32(linhaSelecionada.Cells[0].Value);
             var nome = linhaSelecionada.Cells[1].Value.ToString();
-
-            MessageBox.Show($"Deseja realmente apagar o {nome}?");
-            MessageBox.Show($"Deseja realmente apagar o {nome}?", "AVISO");
-            MessageBox.Show($"Deseja realmente apagar o {nome}?", "AVISO", MessageBoxButtons.YesNo);
 
             var resposta = MessageBox.Show(
                 $"Deseja realmente apagar o {nome}?",

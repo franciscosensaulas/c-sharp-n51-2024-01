@@ -1,4 +1,4 @@
-﻿namespace SupermercadoForm.Modelos
+﻿namespace SupermercadoRepositorios.Modelos
 {
     public class ProdutoFiltros
     {
@@ -22,7 +22,8 @@
         }
         public int Quantidade { get; set; }
         public int Pagina { get; set; }
-        public string OrdenacaoCampo {
+        public string OrdenacaoCampo
+        {
             get
             {
                 return campo;

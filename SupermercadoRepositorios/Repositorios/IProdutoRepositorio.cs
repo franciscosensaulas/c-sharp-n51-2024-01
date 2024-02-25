@@ -1,5 +1,5 @@
-﻿using SupermercadoForm.Modelos;
-using SupermercadoRepositorios.Entidades;
+﻿using SupermercadoRepositorios.Entidades;
+using SupermercadoRepositorios.Modelos;
 
 namespace SupermercadoRepositorios.Repositorios
 {

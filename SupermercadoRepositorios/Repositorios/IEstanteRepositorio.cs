@@ -1,6 +1,6 @@
 ﻿using SupermercadoRepositorios.Entidades;
 
-namespace SupermercadoForm.Repositorios
+namespace SupermercadoRepositorios.Repositorios
 {
     public interface IEstanteRepositorio
     {

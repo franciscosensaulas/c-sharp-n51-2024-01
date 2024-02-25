@@ -1,11 +1,11 @@
-﻿using SupermercadoForm.Repositorios;
-using SupermercadoRepositorios.Entidades;
+﻿using SupermercadoRepositorios.Entidades;
+using SupermercadoRepositorios.Repositorios;
 
 namespace SupermercadoForm.Telas
 {
     public partial class CategoriaForm : Form
     {
-        private CategoriaRepositorio repositorio;
+        private ICategoriaRepositorio repositorio;
 
         public CategoriaForm()
         {
@@ -140,8 +140,7 @@ namespace SupermercadoForm.Telas
             int codigoParaAlterar = Convert.ToInt32(textBoxCodigoParaAlterar.Text);
             string nome = textBoxNomeParaAlterar.Text;
 
-            var categoria = new Categoria();
-            categoria.Id = codigoParaAlterar;
+            var categoria = repositorio.ObterPorId(codigoParaAlterar);
             categoria.Nome = nome;
 
             repositorio.Atualizar(categoria);
