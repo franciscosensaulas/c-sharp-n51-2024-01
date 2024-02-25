@@ -1,8 +1,7 @@
 ﻿namespace SupermercadoRepositorios.Entidades
 {
-    public class Estante
+    public class Estante : EntidadeBase
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         public string Sigla { get; set; }
     }

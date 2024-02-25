@@ -1,16 +1,19 @@
 ﻿using SupermercadoForm.Modelos;
 using SupermercadoForm.Repositorios;
+using SupermercadoRepositorios.Repositorios;
 
 namespace SupermercadoForm.Telas
 {
     public partial class ProdutoListaForm : Form
     {
+        private IProdutoRepositorio produtoRepositorio;
         private int posicaoPaginacao = 0;
         private int QuantidadeRegistros = 0;
 
         public ProdutoListaForm()
         {
             InitializeComponent();
+            produtoRepositorio = new ProdutoRepositorio();
             comboBoxExibir.SelectedIndex = 0;
             comboBoxOrdenar.SelectedIndex = 0;
             comboBoxQuantidade.SelectedIndex = 0;
@@ -42,8 +45,6 @@ namespace SupermercadoForm.Telas
             produtoFiltros.OrdenacaoOrdem = comboBoxOrdenar.SelectedItem.ToString();
             produtoFiltros.Pagina = posicaoPaginacao;
 
-            // Instanciado um objeto do ProdutoRepositorio, para obtermos a lista de produtos
-            var produtoRepositorio = new ProdutoRepositorio();
             // Obter a lista de produtos (SELECT no BD)
             var produtos = produtoRepositorio.ObterTodos(produtoFiltros);
 
@@ -169,6 +170,39 @@ namespace SupermercadoForm.Telas
             comboBoxOrdenar.SelectedIndex = 0;
             comboBoxQuantidade.SelectedIndex = 0;
             textBoxPesquisa.Clear();
+            PreencherDataGridViewComProdutos();
+        }
+
+        private void buttonApagar_Click(object sender, EventArgs e)
+        {
+            var linhaSelecionada = dataGridViewProdutos.SelectedRows[0];
+            var id = Convert.ToInt32(linhaSelecionada.Cells[0].Value);
+            var nome = linhaSelecionada.Cells[1].Value.ToString();
+
+            MessageBox.Show($"Deseja realmente apagar o {nome}?");
+            MessageBox.Show($"Deseja realmente apagar o {nome}?", "AVISO");
+            MessageBox.Show($"Deseja realmente apagar o {nome}?", "AVISO", MessageBoxButtons.YesNo);
+
+            var resposta = MessageBox.Show(
+                $"Deseja realmente apagar o {nome}?",
+                "AVISO",
+                MessageBoxButtons.YesNo);
+            if (resposta == DialogResult.No)
+                return;
+
+            produtoRepositorio.Apagar(id);
+            PreencherDataGridViewComProdutos();
+        }
+
+        private void buttonEditar_Click(object sender, EventArgs e)
+        {
+            var linhaSelecionada = dataGridViewProdutos.SelectedRows[0];
+            var id = Convert.ToInt32(linhaSelecionada.Cells[0].Value);
+
+            var produtoSelecionado = produtoRepositorio.ObterPorId(id);
+
+            var produtoCadastroForm = new ProdutoCadastroForm(produtoSelecionado);
+            produtoCadastroForm.ShowDialog();
             PreencherDataGridViewComProdutos();
         }
     }

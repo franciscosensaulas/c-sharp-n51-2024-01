@@ -1,6 +1,7 @@
 ﻿using SupermercadoForm.Modelos;
 using SupermercadoRepositorios.BancoDados;
 using SupermercadoRepositorios.Entidades;
+using SupermercadoRepositorios.Repositorios;
 using System.Data;
 
 namespace SupermercadoForm.Repositorios
@@ -13,7 +14,7 @@ namespace SupermercadoForm.Repositorios
     // Read => SELECT
     // Update => UPDATE
     // Delete => DELETE
-    public class ProdutoRepositorio
+    public class ProdutoRepositorio : IProdutoRepositorio
     {
         /*
          * Orientação a Objetos
@@ -23,7 +24,7 @@ namespace SupermercadoForm.Repositorios
                      - Com(string,int) e sem retorno(void)
                      - Com e sem parâmetros => int numero1, o que fica dentro dos parênteses
         */
-        public void Cadastrar(string nome, int idCategoria, decimal precoUnitario)
+        public void Cadastrar(Produto produto)
         {
             // Instanciado um objeto que realiza a conexão com o banco de dados
             var conexao = new ConexaoBancoDados();
@@ -34,9 +35,9 @@ namespace SupermercadoForm.Repositorios
                 INSERT INTO produtos (nome, id_categoria, preco_unitario) VALUES
                 (@NOME, @ID_CATEGORIA, @PRECO_UNITARIO)
             """;
-            comando.Parameters.AddWithValue("@NOME", nome);
-            comando.Parameters.AddWithValue("@ID_CATEGORIA", idCategoria);
-            comando.Parameters.AddWithValue("@PRECO_UNITARIO", precoUnitario);
+            comando.Parameters.AddWithValue("@NOME", produto.Nome);
+            comando.Parameters.AddWithValue("@ID_CATEGORIA", produto.Categoria.Id);
+            comando.Parameters.AddWithValue("@PRECO_UNITARIO", produto.PrecoUnitario);
             comando.ExecuteNonQuery();
             // Fechar a conexão com o banco de dados
             comando.Connection.Close();
@@ -118,6 +119,69 @@ namespace SupermercadoForm.Repositorios
             // Fechar conexão
             comando.Connection.Close();
             return registroQuantidade;
+        }
+
+        public void Apagar(int id)
+        {
+            // Instanciado um objeto que realiza a conexão com o banco de dados
+            var conexao = new ConexaoBancoDados();
+            // Criado o comando utilizando a conexão
+            var comando = conexao.Conectar();
+            // Definir o comando de apagar o produto
+            comando.CommandText = "DELETE FROM produtos WHERE id = @ID";
+            comando.Parameters.AddWithValue("@ID", id);
+            comando.ExecuteNonQuery();
+            // Fechar a conexão com o banco de dados
+            comando.Connection.Close();
+        }
+
+        public Produto ObterPorId(int id)
+        {// Instanciado um objeto que realiza a conexão com o banco de dados
+            var conexao = new ConexaoBancoDados();
+            // Criado o comando utilizando a conexão
+            var comando = conexao.Conectar();
+            // Definir o comando de consultar produto na tabela de produtos
+            comando.CommandText = "SELECT * FROM produtos WHERE id = @ID";
+            // Definir o valor do id para o select
+            comando.Parameters.AddWithValue("@ID", id);
+            // Instanciado uma tabela em memória para armazenar os registros retornados do BD na consulta SELECT
+            var tabelaEmMemoria = new DataTable();
+            // Executar a consulta SELECT carregando os dados na tabela em memória
+            tabelaEmMemoria.Load(comando.ExecuteReader());
+            // Fechar conexão com o BD
+            comando.Connection.Close();
+            // Obter o registro
+            var registro = tabelaEmMemoria.Rows[0];
+            var produto = new Produto();
+            produto.Id = Convert.ToInt32(registro["id"]);
+            produto.Nome = registro["nome"].ToString();
+            produto.PrecoUnitario = Convert.ToDecimal(registro["preco_unitario"]);
+            produto.Categoria = new Categoria();
+            produto.Categoria.Id = Convert.ToInt32(registro["id_categoria"]);
+            return produto;
+        }
+
+        public void Atualizar(Produto produto)
+        {
+            // Instanciado um objeto que realiza a conexão com o banco de dados
+            var conexao = new ConexaoBancoDados();
+            // Criado o comando utilizando a conexão
+            var comando = conexao.Conectar();
+            // Definir o comando de atualizar produto na tabela de produtos
+            comando.CommandText = """
+                UPDATE produtos SET 
+                    nome = @NOME,
+                    id_categoria = @ID_CATEGORIA,
+                    preco_unitario = @PRECO_UNITARIO
+                WHERE id = @ID
+            """;
+            comando.Parameters.AddWithValue("@NOME", produto.Nome);
+            comando.Parameters.AddWithValue("@ID_CATEGORIA", produto.Categoria.Id);
+            comando.Parameters.AddWithValue("@PRECO_UNITARIO", produto.PrecoUnitario);
+            comando.Parameters.AddWithValue("@ID", produto.Id);
+            comando.ExecuteNonQuery();
+            // Fechar a conexão com o banco de dados
+            comando.Connection.Close();
         }
     }
 }
